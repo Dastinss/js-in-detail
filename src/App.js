@@ -7,6 +7,7 @@ import {UnconrolledRating} from "./UncontrolledRating/UncontrolledRating";
 import {useState} from "react";
 import type {RatingValueType} from "./Rating/Rating";
 import {UncontrolledOnOff} from "./components/UncontrolledOnOff/UncontrolledOnOff";
+import {Select} from "./components/Select/Select";
 
 // function hello() {
 //     alert('Hi, my dear!')
@@ -23,6 +24,7 @@ function App(props: any) {
 
     return (
         <div className={'App'}>
+            {/*<Select />*/}
             <Rating value={ratingValue} onClick={setRatingValue}/>
 
             <OnOff on = {switchOn} onChange={setSwitchOn}/>

@@ -16,4 +16,4 @@ const callBack = action ('on or off click');
 
 export const OnMode = () => <UncontrolledOnOff defaultOn={true}/>;
 export const OffMode = () => <UncontrolledOnOff defaultOn={false}/>;
-export const DefaultInputValue = () => <input defaultValue={'yo'}/> //Если поставить поле value={'yo'}, то єто поле невозможно будет изменить, если же defaultValue={'yo'}, то віводится поле, но менять его можно
+// export const DefaultInputValue = () => <input defaultValue={'yo'}/> //Если поставить поле value={'yo'}, то єто поле невозможно будет изменить, если же defaultValue={'yo'}, то віводится поле, но менять его можно

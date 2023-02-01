@@ -1,0 +1,14 @@
+.select {
+    border: 1px solid black;
+}
+
+.items {
+    /*display: none;  - скрытие списка через CSS*/
+    position: absolute;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+/*.select.active .items {   - скрытие списка через CSS*/
+/*    display: block;*/
+/*}*/
