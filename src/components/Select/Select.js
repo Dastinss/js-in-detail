@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, KeyboardEvent, useEffect } from "react";
 import styles from './Select.module.css'
 
 type ItemType = {
@@ -19,11 +19,38 @@ export function Select( props: SelectPropsType ) {
     const selectedItem = props.items.find( i => i.value === props.value ); // исп-ем filter или find. нужно отобразить текущее value, для этого нужно пробежаться по всем items , найти тот items, где совпадает с велью и отобразить нужный тайтл нужного айтемса
     const hoveredEItem = props.items.find( i => i.value === hoveredElementValue ); // исп-ем filter или find. нужно отобразить текущее value, для этого нужно пробежаться по всем items , найти тот items, где совпадает с велью и отобразить нужный тайтл нужного айтемса
 
-    const toggleItems = () => setActive( !active ) // открываем и скрываем список из трех городов ниже h3
+    useEffect( () => {
+        setHoveredElementValue(props.value)
+    }, [props.value])
 
-    const onItemClick = (value: any) => {
+    const toggleItems = () => setActive( !active ) // открываем и скрываем список из трех городов ниже h3
+    const onItemClick = ( value: any ) => {
         props.onChange( value )
         toggleItems();
+    }
+
+    const onKeyUp = ( e: KeyboardEvent<HTMLDivElement> ) => {
+        // console.log('press')
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            for (let i = 0; i < props.items.length; i++) {
+                if (props.items[ i ].value === hoveredElementValue) {
+                    const pretendentElement = e.key === 'ArrowDown'
+                        ? props.items[i + 1]
+                        : props.items [i - 1]
+
+                    if (pretendentElement) {
+                        props.onChange( pretendentElement.value )
+                        return
+                    }
+                }
+            }
+            if (!selectedItem) {
+                props.onChange(props.items[0].value )
+            }
+        }
+        if (e.key === 'Enter' || e.key === 'Escape') {
+            setActive( false )
+        }
     }
 
     return (
@@ -37,16 +64,20 @@ export function Select( props: SelectPropsType ) {
             {/*//     <option value="">Kiev</option>*/}
             {/*// </select>*/}
 
-            <div className={styles.select} onKeyUp={() => {console.log('press')}} tabIndex={0}>
+            <div className={styles.select} onKeyUp={onKeyUp} tabIndex={0}>
                 <span className={styles.main} onClick={toggleItems}>{selectedItem && selectedItem.title}</span>
                 {
                     active && // рисует дивку только если active. т.е. скрываем список не через css (разметку display: block), а через jsx
                     <div className={styles.items}>
                         {props.items.map( i => <div
-                            onMouseEnter={() => {setHoveredElementValue (i.value)}}
+                            onMouseEnter={() => {
+                                setHoveredElementValue( i.value )
+                            }}
                             className={styles.item + ' ' + (hoveredEItem === i ? styles.selected : '')}
                             key={i.value}
-                            onClick={() => { onItemClick (i.value) }} //когда кликнули, то стрелочная ф-ция ,которая ничего не принимает, достучалась до i.value. не віносим ф-цию наружу, делаем замыкание, нам нужно на 20 айтемсов создать 20 стрелочных ф-ций и у каждой i будет свое value. toggleItems закрывает список, когда выбор сделан
+                            onClick={() => {
+                                onItemClick( i.value )
+                            }} //когда кликнули, то стрелочная ф-ция ,которая ничего не принимает, достучалась до i.value. не віносим ф-цию наружу, делаем замыкание, нам нужно на 20 айтемсов создать 20 стрелочных ф-ций и у каждой i будет свое value. toggleItems закрывает список, когда выбор сделан
                         >{i.title}
                         </div> )}
                     </div>
@@ -54,5 +85,4 @@ export function Select( props: SelectPropsType ) {
             </div>
         </>
     )
-
 }
