@@ -14,24 +14,32 @@ export default {
     },
 };
 
-export const WithValue = () =>
-    <>
-        <Select onChange={action('Velue changed')}
-                value = {'2'}
+export const WithValue = () =>{
+    const [value, setValue] = useState('2')
+
+        return <>
+        {/*<Select onChange={action('Velue changed')} удалили после того, как добавили useState*/}
+        <Select onChange={setValue}
+                value = {value}
                 items={[
                     {value: '1', title: 'Minsk'},
                     {value: '2', title: 'Moscow'},
                     {value: '3', title: 'Kiev'}
                 ]}/>
     </>
+}
 
+export const WithotValue = () => {
+const [value, setValue] = useState(null)
 
-export const WithotValue = () =>
-    <>
-        <Select onChange={action('Velue changed')}
+    return <>
+        {/*<Select onChange={action('Velue changed')} удалили после того, как добавили useState*/}
+        <Select onChange={setValue}
+                value={value}
                 items={[
                     {value: '1', title: 'Minsk'},
                     {value: '2', title: 'Moscow'},
                     {value: '3', title: 'Kiev'}
                 ]}/>
     </>
+}
