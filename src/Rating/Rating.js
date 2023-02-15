@@ -51,7 +51,7 @@ function Star(props: StarPropsType) {    //Star ждет (должно жест�
     // return <span><b>star </b></span> ? props.selected === true : "star "
     return <span onClick={() => {
         props.onClick(props.value)
-    }}>{props.selected ? <b>star </b> : "star "}</span>
+    }}>{props.selected ? <b>star </b> : "stars "}</span>
     //
     // if (props.selected === true) {
     //     return <span><b>star </b></span>
