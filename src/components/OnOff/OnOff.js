@@ -17,7 +17,7 @@ export function OnOff (props: OnOffPropsType) {
     const onStyle = {
         width: '30px',
         height: '20px',
-        border: '1px solid red',
+        border: '1px solid pink',
         display: 'inline-block',
         padding: '2px',
         backgroundColor: props.on ? 'green' : 'white'
